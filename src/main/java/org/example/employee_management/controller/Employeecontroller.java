@@ -1,12 +1,12 @@
-package controller;
+package org.example.employee_management.controller;
 
-import entity.Employee;
+import org.example.employee_management.entity.Employee;
 import org.springframework.web.bind.annotation.*;
-import service.Employeeservice;
+import org.example.employee_management.service.Employeeservice;
 import java.util.Optional;
 import java.util.List;
 
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 @RestController
 public class Employeecontroller {
     private final Employeeservice service;

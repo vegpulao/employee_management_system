@@ -1,6 +1,6 @@
-package repository;
+package org.example.employee_management.repository;
 
-import entity.Employee;
+import org.example.employee_management.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

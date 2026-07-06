@@ -1,12 +1,12 @@
-package controller;
+package org.example.employee_management.controller;
 
-import entity.Leave;
+import org.example.employee_management.entity.Leave;
 import org.springframework.web.bind.annotation.*;
-import service.Leaveservice;
+import org.example.employee_management.service.Leaveservice;
 import java.util.Optional;
 import java.util.List;
 
-@RequestMapping("/leave")
+@RequestMapping("/leaves")
 @RestController
 public class Leavecontroller {
     private final Leaveservice service;

@@ -1,4 +1,4 @@
-package entity;
+package org.example.employee_management.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,24 +6,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Leave {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDate startDate;
+    private String name;
+    private int age;
+    private double salary;
 
-    private LocalDate endDate;
+    @Column(unique = true)
+    private String email;
 
-    private String reason;
-
-    private String status;
+    private String designation;
+    private String department;
 }

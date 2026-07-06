@@ -1,8 +1,8 @@
-package service;
+package org.example.employee_management.service;
 
-import entity.Leave;
+import org.example.employee_management.entity.Leave;
 import org.springframework.stereotype.Service;
-import repository.Leaverepository;
+import org.example.employee_management.repository.Leaverepository;
 import java.util.List;
 import java.util.Optional;
 

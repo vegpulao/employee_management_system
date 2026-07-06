@@ -1,4 +1,4 @@
-package entity;
+package org.example.employee_management.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

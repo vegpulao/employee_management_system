@@ -1,8 +1,8 @@
-package service;
+package org.example.employee_management.service;
 
-import entity.Employee;
+import org.example.employee_management.entity.Employee;
 import org.springframework.stereotype.Service;
-import repository.Employeerepository;
+import org.example.employee_management.repository.Employeerepository;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,12 +1,12 @@
-package controller;
+package org.example.employee_management.controller;
 
-import entity.Task;
+import org.example.employee_management.entity.Task;
 import org.springframework.web.bind.annotation.*;
-import service.Taskservice;
+import org.example.employee_management.service.Taskservice;
 import java.util.Optional;
 import java.util.List;
 
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 @RestController
 public class Taskcontroller {
     private final Taskservice service;
