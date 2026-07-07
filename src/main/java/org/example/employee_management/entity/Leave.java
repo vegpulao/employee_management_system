@@ -1,11 +1,11 @@
 package org.example.employee_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Getter
@@ -26,4 +26,9 @@ public class Leave {
     private String reason;
 
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name="employee_id")
+    @JsonBackReference
+    private Employee employee;
 }

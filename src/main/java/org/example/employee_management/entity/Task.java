@@ -1,5 +1,6 @@
 package org.example.employee_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,9 @@ public class Task {
     private String status;
 
     private LocalDate dueDate;
+
+    @ManyToOne
+    @JoinColumn(name="employee_id")
+    @JsonBackReference
+    private Employee employee;
 }

@@ -1,10 +1,13 @@
 package org.example.employee_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +29,12 @@ public class Employee {
 
     private String designation;
     private String department;
+
+    @OneToMany(mappedBy = "employee")
+    @JsonManagedReference
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "employee")
+    @JsonManagedReference
+    private List<Leave> leaves;
 }
