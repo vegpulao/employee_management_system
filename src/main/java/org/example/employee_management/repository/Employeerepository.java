@@ -8,11 +8,11 @@ import java.util.List;
 
 @Repository
 public interface Employeerepository extends JpaRepository<Employee, Integer> {
-    
+
     List<Employee> findByDepartment(String department);
 
     List<Employee> findByDesignation(String designation);
 
-    List<Employee> findByNameContaining(String name);
+    List<Employee> findByNameContainingIgnoreCase(String name);
 
 }

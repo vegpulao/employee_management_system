@@ -1,6 +1,8 @@
 package org.example.employee_management.service;
 
 import org.example.employee_management.dto.LoginRequest;
+import org.example.employee_management.dto.LoginResponse;
+import org.example.employee_management.dto.MessageResponse;
 import org.example.employee_management.entity.AppUser;
 import org.example.employee_management.repository.AppUserrepository;
 import org.example.employee_management.security.Jwtservice;
@@ -29,23 +31,32 @@ public class Authenticationservice {
         this.jwtservice = jwtservice;
     }
     // Registration
-    public AppUser register(AppUser appUser) {
+    public MessageResponse register(AppUser appUser) {
 
         appUser.setPassword(
                 passwordEncoder.encode(appUser.getPassword())
         );
 
-        return repository.save(appUser);
+        repository.save(appUser);
+
+        return new MessageResponse("User registered successfully.");
     }
-    public String login(LoginRequest request){
+    public LoginResponse login(LoginRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-        return jwtservice.generateToken(
-                request.getUsername()
+        AppUser user = repository.findByUsername(request.getUsername())
+                .orElseThrow();
+        String token = jwtservice.generateToken(
+                user.getUsername()
+        );
+        return new LoginResponse(
+                token,
+                user.getUsername(),
+                user.getRole()
         );
     }
 

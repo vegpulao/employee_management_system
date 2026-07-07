@@ -1,6 +1,10 @@
 package org.example.employee_management.service;
 
+import org.example.employee_management.dto.EmployeeRequest;
+import org.example.employee_management.dto.EmployeeResponse;
+import org.example.employee_management.dto.MessageResponse;
 import org.example.employee_management.entity.Employee;
+import org.example.employee_management.mapper.EmployeeMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.example.employee_management.exception.ResourceNotFoundException;
@@ -18,58 +22,106 @@ public class Employeeservice {
     }
 
     // Add employee
-    public Employee addEmployee(Employee employee) {
-        return repository.save(employee);
+    public EmployeeResponse addEmployee(EmployeeRequest request) {
+
+        Employee employee = EmployeeMapper.toEntity(request);
+
+        employee = repository.save(employee);
+
+        return EmployeeMapper.toResponse(employee);
+
     }
 
     // View All employees
-    public List<Employee> getAllEmployees() {
-        return repository.findAll();
+    public List<EmployeeResponse> getAllEmployees() {
+
+        return repository.findAll()
+                .stream()
+                .map(EmployeeMapper::toResponse)
+                .toList();
+
     }
 
     // Search employee by ID
-    public Employee getEmployeeById(Integer id) {
-        return repository.findById(id)
+    public EmployeeResponse getEmployeeById(Integer id) {
+
+        Employee employee = repository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Employee with id " + id + " not found"));
+
+                        new ResourceNotFoundException("Employee with id " + id + " not found"));;
+
+        return EmployeeMapper.toResponse(employee);
+
     }
 
     // Update employee
-    public Employee updateEmployee(Integer id, Employee employee) {
+    public EmployeeResponse updateEmployee(
+            Integer id,
+            EmployeeRequest request) {
 
-        repository.findById(id)
+        Employee existing = repository.findById(id)
                 .orElseThrow(() ->
+
                         new ResourceNotFoundException("Employee with id " + id + " not found"));
 
-        employee.setId(id);
+        existing.setName(request.getName());
+        existing.setAge(request.getAge());
+        existing.setSalary(request.getSalary());
+        existing.setEmail(request.getEmail());
+        existing.setDesignation(request.getDesignation());
+        existing.setDepartment(request.getDepartment());
 
-        return repository.save(employee);
+        existing = repository.save(existing);
+
+        return EmployeeMapper.toResponse(existing);
+
     }
 
     // Delete employee
-    public void deleteEmployee(Integer id) {
-        Employee employee = repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Employee with id " + id + " not found"));
+    public MessageResponse deleteEmployee(Integer id) {
 
-        repository.delete(employee);
+        repository.deleteById(id);
+
+        return new MessageResponse(
+                "Employee deleted successfully."
+        );
+
     }
 
     // Search services
-    public List<Employee> searchByDepartment(String department) {
-        return repository.findByDepartment(department);
+    public List<EmployeeResponse> searchByDepartment(String department) {
+
+        return repository.findByDepartment(department)
+                .stream()
+                .map(EmployeeMapper::toResponse)
+                .toList();
+
     }
 
-    public List<Employee> searchByDesignation(String designation) {
-        return repository.findByDesignation(designation);
+    public List<EmployeeResponse> searchByDesignation(String designation) {
+
+        return repository.findByDesignation(designation)
+                .stream()
+                .map(EmployeeMapper::toResponse)
+                .toList();
+
     }
 
-    public List<Employee> searchByName(String name) {
-        return repository.findByNameContaining(name);
+    public List<EmployeeResponse> searchByName(String name) {
+
+        return repository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(EmployeeMapper::toResponse)
+                .toList();
+
     }
 
     // Pagination
-    public Page<Employee> getEmployees(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<EmployeeResponse> getEmployees(Pageable pageable) {
+
+        return repository.findAll(pageable)
+                .map(EmployeeMapper::toResponse);
+
     }
 }
+
