@@ -3,7 +3,6 @@ package org.example.employee_management.controller;
 import org.example.employee_management.entity.Employee;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Employeeservice;
-import java.util.Optional;
 import java.util.List;
 
 @RequestMapping("/employees")
@@ -25,7 +24,7 @@ public class Employeecontroller {
         return service.getAllEmployees();
     }
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployeeById(@PathVariable int id) {
+    public Employee getEmployeeById(@PathVariable Integer id) {
         return service.getEmployeeById(id);
     }
     @DeleteMapping("/{id}")
@@ -33,11 +32,9 @@ public class Employeecontroller {
         service.deleteEmployee(id);
     }
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable int id,
-                                  @RequestBody Employee employee) {
+    public Employee updateEmployee(@PathVariable Integer id,
+                                   @RequestBody Employee employee) {
 
-        employee.setId(id);
-
-        return service.updateEmployee(employee);
+        return service.updateEmployee(id, employee);
     }
 }

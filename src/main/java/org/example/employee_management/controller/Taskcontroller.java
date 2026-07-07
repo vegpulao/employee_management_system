@@ -1,5 +1,6 @@
 package org.example.employee_management.controller;
 
+import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Task;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Taskservice;
@@ -24,7 +25,7 @@ public class Taskcontroller {
         return service.getAllTask();
     }
     @GetMapping("/{id}")
-    public Optional<Task> getTaskById(@PathVariable int id) {
+    public Task getTaskById(@PathVariable Integer id) {
         return service.getTaskById(id);
     }
     @DeleteMapping("/{id}")
@@ -32,11 +33,9 @@ public class Taskcontroller {
         service.deleteTask(id);
     }
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable int id,
-                             @RequestBody Task task) {
+    public Task updateTask(@PathVariable Integer id,
+                                   @RequestBody Task task) {
 
-        task.setId(id);
-
-        return service.updateTask(task);
+        return service.updateTask(id, task);
     }
 }

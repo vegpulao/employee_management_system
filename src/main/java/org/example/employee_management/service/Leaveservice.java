@@ -1,6 +1,8 @@
 package org.example.employee_management.service;
 
+import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Leave;
+import org.example.employee_management.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.example.employee_management.repository.Leaverepository;
 import java.util.List;
@@ -26,17 +28,30 @@ public class Leaveservice {
     }
 
     // Search leave by ID
-    public Optional<Leave> getLeaveById(Integer id) {
-        return repository.findById(id);
+    public Leave getLeaveById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Leave request with id " + id + " not found"));
     }
 
     // Update leave
-    public Leave updateLeave(Leave leave_request) {
+    public Leave updateLeave(Integer id, Leave leave_request) {
+
+        repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Leave request with id " + id + " not found"));
+
+        leave_request.setId(id);
+
         return repository.save(leave_request);
     }
 
     // Delete leave
     public void deleteLeave(Integer id) {
-        repository.deleteById(id);
+        Leave leave_request = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee with id " + id + " not found"));
+
+        repository.delete(leave_request);
     }
 }

@@ -1,10 +1,10 @@
 package org.example.employee_management.service;
 
 import org.example.employee_management.entity.Employee;
+import org.example.employee_management.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.example.employee_management.repository.Employeerepository;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class Employeeservice {
@@ -26,17 +26,30 @@ public class Employeeservice {
     }
 
     // Search employee by ID
-    public Optional<Employee> getEmployeeById(Integer id) {
-        return repository.findById(id);
+    public Employee getEmployeeById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee with id " + id + " not found"));
     }
 
     // Update employee
-    public Employee updateEmployee(Employee employee) {
+    public Employee updateEmployee(Integer id, Employee employee) {
+
+        repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee with id " + id + " not found"));
+
+        employee.setId(id);
+
         return repository.save(employee);
     }
 
     // Delete employee
     public void deleteEmployee(Integer id) {
-        repository.deleteById(id);
+        Employee employee = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee with id " + id + " not found"));
+
+        repository.delete(employee);
     }
 }

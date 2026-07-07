@@ -1,5 +1,6 @@
 package org.example.employee_management.controller;
 
+import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Leave;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Leaveservice;
@@ -24,7 +25,7 @@ public class Leavecontroller {
         return service.getAllLeaves();
     }
     @GetMapping("/{id}")
-    public Optional<Leave> getLeaveById(@PathVariable int id) {
+    public Leave getLeaveById(@PathVariable Integer id) {
         return service.getLeaveById(id);
     }
     @DeleteMapping("/{id}")
@@ -32,11 +33,9 @@ public class Leavecontroller {
         service.deleteLeave(id);
     }
     @PutMapping("/{id}")
-    public Leave updateLeave(@PathVariable int id,
+    public Leave updateLeave(@PathVariable Integer id,
                                    @RequestBody Leave leave_request) {
 
-        leave_request.setId(id);
-
-        return service.updateLeave(leave_request);
+        return service.updateLeave(id, leave_request);
     }
 }

@@ -1,6 +1,8 @@
 package org.example.employee_management.service;
 
+import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Task;
+import org.example.employee_management.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.example.employee_management.repository.Taskrepository;
 import java.util.List;
@@ -26,17 +28,30 @@ public class Taskservice {
     }
 
     // Search task by ID
-    public Optional<Task> getTaskById(Integer id) {
-        return repository.findById(id);
+    public Task getTaskById(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Task with id " + id + " not found"));
     }
 
     // Update task
-    public Task updateTask(Task task) {
+    public Task updateTask(Integer id, Task task) {
+
+        repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Task with id " + id + " not found"));
+
+        task.setId(id);
+
         return repository.save(task);
     }
 
     // Delete task
     public void deleteTask(Integer id) {
-        repository.deleteById(id);
+        Task task = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Task with id " + id + " not found"));
+
+        repository.delete(task);
     }
 }
