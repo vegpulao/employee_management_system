@@ -54,4 +54,17 @@ public class Taskservice {
 
         repository.delete(task);
     }
+
+    // Search services
+    public List<Task> searchByStatus(String status) {
+        return repository.findByStatus(status);
+    }
+
+    public List<Task> searchByPriority(String priority) {
+        return repository.findByPriority(priority);
+    }
+
+    public List<Task> searchByTitle(String title) {
+        return repository.findByTitleContaining(title);
+    }
 }

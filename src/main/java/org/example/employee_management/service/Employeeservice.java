@@ -52,4 +52,17 @@ public class Employeeservice {
 
         repository.delete(employee);
     }
+
+    // Search services
+    public List<Employee> searchByDepartment(String department) {
+        return repository.findByDepartment(department);
+    }
+
+    public List<Employee> searchByDesignation(String designation) {
+        return repository.findByDesignation(designation);
+    }
+
+    public List<Employee> searchByName(String name) {
+        return repository.findByNameContaining(name);
+    }
 }

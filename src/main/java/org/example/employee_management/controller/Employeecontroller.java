@@ -37,4 +37,18 @@ public class Employeecontroller {
 
         return service.updateEmployee(id, employee);
     }
+    @GetMapping("/search/department/{department}")
+    public List<Employee> searchByDepartment(@PathVariable String department) {
+        return service.searchByDepartment(department);
+    }
+
+    @GetMapping("/search/designation/{designation}")
+    public List<Employee> searchByDesignation(@PathVariable String designation) {
+        return service.searchByDesignation(designation);
+    }
+
+    @GetMapping("/search/name/{name}")
+    public List<Employee> searchByName(@PathVariable String name) {
+        return service.searchByName(name);
+    }
 }

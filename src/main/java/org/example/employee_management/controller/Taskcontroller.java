@@ -38,4 +38,18 @@ public class Taskcontroller {
 
         return service.updateTask(id, task);
     }
+    @GetMapping("/search/status/{status}")
+    public List<Task> searchByStatus(@PathVariable String status) {
+        return service.searchByStatus(status);
+    }
+
+    @GetMapping("/search/priority/{priority}")
+    public List<Task> searchByPriority(@PathVariable String priority) {
+        return service.searchByPriority(priority);
+    }
+
+    @GetMapping("/search/title/{title}")
+    public List<Task> searchByTitle(@PathVariable String title) {
+        return service.searchByTitle(title);
+    }
 }

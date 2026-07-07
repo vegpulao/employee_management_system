@@ -2,6 +2,7 @@ package org.example.employee_management.controller;
 
 import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Leave;
+import org.example.employee_management.entity.Task;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Leaveservice;
 import java.util.Optional;
@@ -37,5 +38,9 @@ public class Leavecontroller {
                                    @RequestBody Leave leave_request) {
 
         return service.updateLeave(id, leave_request);
+    }
+    @GetMapping("/search/status/{status}")
+    public List<Leave> searchByStatus(@PathVariable String status) {
+        return service.searchByStatus(status);
     }
 }

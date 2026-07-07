@@ -54,4 +54,8 @@ public class Leaveservice {
 
         repository.delete(leave_request);
     }
+    public List<Leave> searchByStatus(String status) {
+        return repository.findByStatus(status);
+    }
+
 }
