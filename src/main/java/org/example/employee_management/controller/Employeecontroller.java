@@ -1,5 +1,7 @@
 package org.example.employee_management.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.example.employee_management.entity.Employee;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Employeeservice;
@@ -50,5 +52,9 @@ public class Employeecontroller {
     @GetMapping("/search/name/{name}")
     public List<Employee> searchByName(@PathVariable String name) {
         return service.searchByName(name);
+    }
+    @GetMapping("/page")
+    public Page<Employee> getEmployees(Pageable pageable) {
+        return service.getEmployees(pageable);
     }
 }

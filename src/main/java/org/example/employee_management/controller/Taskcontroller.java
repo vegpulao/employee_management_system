@@ -2,6 +2,8 @@ package org.example.employee_management.controller;
 
 import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Task;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Taskservice;
 import java.util.Optional;
@@ -51,5 +53,10 @@ public class Taskcontroller {
     @GetMapping("/search/title/{title}")
     public List<Task> searchByTitle(@PathVariable String title) {
         return service.searchByTitle(title);
+    }
+
+    @GetMapping("/page")
+    public Page<Task> getTask(Pageable pageable) {
+        return service.getTask(pageable);
     }
 }

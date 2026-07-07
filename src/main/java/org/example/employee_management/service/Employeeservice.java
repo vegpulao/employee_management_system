@@ -1,6 +1,8 @@
 package org.example.employee_management.service;
 
 import org.example.employee_management.entity.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.example.employee_management.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.example.employee_management.repository.Employeerepository;
@@ -64,5 +66,10 @@ public class Employeeservice {
 
     public List<Employee> searchByName(String name) {
         return repository.findByNameContaining(name);
+    }
+
+    // Pagination
+    public Page<Employee> getEmployees(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

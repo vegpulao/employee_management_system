@@ -3,6 +3,8 @@ package org.example.employee_management.service;
 import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Task;
 import org.example.employee_management.exception.ResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.example.employee_management.repository.Taskrepository;
 import java.util.List;
@@ -66,5 +68,10 @@ public class Taskservice {
 
     public List<Task> searchByTitle(String title) {
         return repository.findByTitleContaining(title);
+    }
+
+    // Pagination
+    public Page<Task> getTask(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
