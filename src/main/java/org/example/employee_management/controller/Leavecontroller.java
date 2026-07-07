@@ -1,11 +1,9 @@
 package org.example.employee_management.controller;
 
-import org.example.employee_management.entity.Employee;
-import org.example.employee_management.entity.Leave;
-import org.example.employee_management.entity.Task;
+import org.example.employee_management.entity.Leave_reqs;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Leaveservice;
-import java.util.Optional;
+
 import java.util.List;
 
 @RequestMapping("/leaves")
@@ -18,15 +16,15 @@ public class Leavecontroller {
         this.service = service;
     }
     @PostMapping
-    public Leave addLeave(@RequestBody Leave leave_request) {
+    public Leave_reqs addLeave(@RequestBody Leave_reqs leave_request) {
         return service.addLeave(leave_request);
     }
     @GetMapping
-    public List<Leave> getAllLeave() {
+    public List<Leave_reqs> getAllLeave() {
         return service.getAllLeaves();
     }
     @GetMapping("/{id}")
-    public Leave getLeaveById(@PathVariable Integer id) {
+    public Leave_reqs getLeaveById(@PathVariable Integer id) {
         return service.getLeaveById(id);
     }
     @DeleteMapping("/{id}")
@@ -34,13 +32,13 @@ public class Leavecontroller {
         service.deleteLeave(id);
     }
     @PutMapping("/{id}")
-    public Leave updateLeave(@PathVariable Integer id,
-                                   @RequestBody Leave leave_request) {
+    public Leave_reqs updateLeave(@PathVariable Integer id,
+                                  @RequestBody Leave_reqs leave_request) {
 
         return service.updateLeave(id, leave_request);
     }
     @GetMapping("/search/status/{status}")
-    public List<Leave> searchByStatus(@PathVariable String status) {
+    public List<Leave_reqs> searchByStatus(@PathVariable String status) {
         return service.searchByStatus(status);
     }
 }

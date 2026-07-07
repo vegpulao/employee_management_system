@@ -21,8 +21,8 @@ public class Employee {
     private Integer id;
 
     private String name;
-    private int age;
-    private double salary;
+    private Integer age;
+    private Double salary;
 
     @Column(unique = true)
     private String email;
@@ -36,5 +36,5 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     @JsonManagedReference
-    private List<Leave> leaves;
+    private List<Leave_reqs> leaves;
 }

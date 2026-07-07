@@ -1,12 +1,10 @@
 package org.example.employee_management.controller;
 
-import org.example.employee_management.entity.Employee;
 import org.example.employee_management.entity.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Taskservice;
-import java.util.Optional;
 import java.util.List;
 
 @RequestMapping("/tasks")
@@ -21,10 +19,6 @@ public class Taskcontroller {
     @PostMapping
     public Task addTask(@RequestBody Task task) {
         return service.addTask(task);
-    }
-    @GetMapping
-    public List<Task> getAllTask() {
-        return service.getAllTask();
     }
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Integer id) {
@@ -54,9 +48,18 @@ public class Taskcontroller {
     public List<Task> searchByTitle(@PathVariable String title) {
         return service.searchByTitle(title);
     }
+    @GetMapping
+    public Page<Task> getAllTasks(Pageable pageable) {
 
-    @GetMapping("/page")
-    public Page<Task> getTask(Pageable pageable) {
-        return service.getTask(pageable);
+        return service.getAllTasks(pageable);
+
+    }
+    @GetMapping("/employee/{employeeId}")
+    public Page<Task> getTasksByEmployee(
+            @PathVariable Integer employeeId,
+            Pageable pageable) {
+
+        return service.getTasksByEmployee(employeeId, pageable);
+
     }
 }

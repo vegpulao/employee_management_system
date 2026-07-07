@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Leave {
+public class Leave_reqs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
