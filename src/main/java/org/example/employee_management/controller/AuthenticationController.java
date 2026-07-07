@@ -1,5 +1,6 @@
 package org.example.employee_management.controller;
 
+import org.example.employee_management.dto.LoginRequest;
 import org.example.employee_management.entity.AppUser;
 import org.example.employee_management.service.Authenticationservice;
 import org.springframework.web.bind.annotation.*;
@@ -17,5 +18,12 @@ public class AuthenticationController {
     @PostMapping("/register")
     public AppUser register(@RequestBody AppUser appUser) {
         return service.register(appUser);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest request) {
+
+        return service.login(request);
+
     }
 }
