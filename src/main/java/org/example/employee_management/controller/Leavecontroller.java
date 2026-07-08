@@ -1,5 +1,8 @@
 package org.example.employee_management.controller;
 
+import org.example.employee_management.dto.Leave_reqsRequest;
+import org.example.employee_management.dto.Leave_reqsResponse;
+import org.example.employee_management.dto.MessageResponse;
 import org.example.employee_management.entity.Leave_reqs;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Leaveservice;
@@ -16,29 +19,45 @@ public class Leavecontroller {
         this.service = service;
     }
     @PostMapping
-    public Leave_reqs addLeave(@RequestBody Leave_reqs leave_request) {
-        return service.addLeave(leave_request);
+    public Leave_reqsResponse addLeave(
+            @RequestBody Leave_reqsRequest request) {
+
+        return service.addLeave(request);
+
     }
     @GetMapping
-    public List<Leave_reqs> getAllLeave() {
+    public List<Leave_reqsResponse> getAllLeaves() {
+
         return service.getAllLeaves();
+
     }
     @GetMapping("/{id}")
-    public Leave_reqs getLeaveById(@PathVariable Integer id) {
+    public Leave_reqsResponse getLeaveById(
+            @PathVariable Integer id) {
+
         return service.getLeaveById(id);
+
     }
     @DeleteMapping("/{id}")
-    public void deleteLeave(@PathVariable int id) {
-        service.deleteLeave(id);
+    public MessageResponse deleteLeave(
+            @PathVariable Integer id) {
+
+        return service.deleteLeave(id);
+
     }
     @PutMapping("/{id}")
-    public Leave_reqs updateLeave(@PathVariable Integer id,
-                                  @RequestBody Leave_reqs leave_request) {
+    public Leave_reqsResponse updateLeave(
+            @PathVariable Integer id,
+            @RequestBody Leave_reqsRequest request) {
 
-        return service.updateLeave(id, leave_request);
+        return service.updateLeave(id, request);
+
     }
     @GetMapping("/search/status/{status}")
-    public List<Leave_reqs> searchByStatus(@PathVariable String status) {
+    public List<Leave_reqsResponse> searchByStatus(
+            @PathVariable String status) {
+
         return service.searchByStatus(status);
+
     }
 }
