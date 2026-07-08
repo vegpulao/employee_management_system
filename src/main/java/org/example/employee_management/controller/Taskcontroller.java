@@ -1,6 +1,8 @@
 package org.example.employee_management.controller;
 
-import org.example.employee_management.entity.Task;
+import org.example.employee_management.dto.MessageResponse;
+import org.example.employee_management.dto.TaskRequest;
+import org.example.employee_management.dto.TaskResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -17,45 +19,56 @@ public class Taskcontroller {
         this.service = service;
     }
     @PostMapping
-    public Task addTask(@RequestBody Task task) {
-        return service.addTask(task);
+    public TaskResponse addTask(
+            @RequestBody TaskRequest request) {
+
+        return service.addTask(request);
+
     }
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Integer id) {
+    public TaskResponse getTaskById(
+            @PathVariable Integer id) {
+
         return service.getTaskById(id);
+
     }
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable int id) {
-        service.deleteTask(id);
+    public MessageResponse deleteTask(
+            @PathVariable Integer id) {
+
+        return service.deleteTask(id);
+
     }
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable Integer id,
-                                   @RequestBody Task task) {
+    public TaskResponse updateTask(
+            @PathVariable Integer id,
+            @RequestBody TaskRequest request) {
 
-        return service.updateTask(id, task);
+        return service.updateTask(id, request);
+
     }
     @GetMapping("/search/status/{status}")
-    public List<Task> searchByStatus(@PathVariable String status) {
+    public List<TaskResponse> searchByStatus(@PathVariable String status) {
         return service.searchByStatus(status);
     }
 
     @GetMapping("/search/priority/{priority}")
-    public List<Task> searchByPriority(@PathVariable String priority) {
+    public List<TaskResponse> searchByPriority(@PathVariable String priority) {
         return service.searchByPriority(priority);
     }
 
     @GetMapping("/search/title/{title}")
-    public List<Task> searchByTitle(@PathVariable String title) {
+    public List<TaskResponse> searchByTitle(@PathVariable String title) {
         return service.searchByTitle(title);
     }
     @GetMapping
-    public Page<Task> getAllTasks(Pageable pageable) {
+    public Page<TaskResponse> getAllTasks(Pageable pageable) {
 
         return service.getAllTasks(pageable);
 
     }
     @GetMapping("/employee/{employeeId}")
-    public Page<Task> getTasksByEmployee(
+    public Page<TaskResponse> getTasksByEmployee(
             @PathVariable Integer employeeId,
             Pageable pageable) {
 
