@@ -7,6 +7,7 @@ import org.example.employee_management.dto.TaskResponse;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Taskservice;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Taskcontroller {
 
         this.service = service;
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public TaskResponse addTask(
             @Valid @RequestBody TaskRequest request) {
@@ -34,6 +36,7 @@ public class Taskcontroller {
         return service.getTaskById(id);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public MessageResponse deleteTask(
             @PathVariable Integer id) {
@@ -41,6 +44,7 @@ public class Taskcontroller {
         return service.deleteTask(id);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public TaskResponse updateTask(
             @PathVariable Integer id,

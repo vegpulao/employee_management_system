@@ -6,6 +6,7 @@ import org.example.employee_management.dto.MessageResponse;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Employeeservice;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ public class Employeecontroller {
 
         return service.getEmployees(pageable);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public EmployeeResponse addEmployee(
             @Valid @RequestBody EmployeeRequest request) {
@@ -41,10 +43,12 @@ public class Employeecontroller {
     public EmployeeResponse getEmployeeById(@PathVariable Integer id) {
         return service.getEmployeeById(id);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public MessageResponse deleteEmployee(@PathVariable Integer id){
         return service.deleteEmployee(id);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public EmployeeResponse updateEmployee(
             @PathVariable Integer id,

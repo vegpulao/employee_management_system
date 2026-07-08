@@ -5,6 +5,7 @@ import org.example.employee_management.dto.Leave_reqsRequest;
 import org.example.employee_management.dto.Leave_reqsResponse;
 import org.example.employee_management.dto.MessageResponse;
 import org.example.employee_management.entity.Leave_reqs;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Leaveservice;
 
@@ -19,6 +20,7 @@ public class Leavecontroller {
 
         this.service = service;
     }
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
     @PostMapping
     public Leave_reqsResponse addLeave(
             @Valid @RequestBody Leave_reqsRequest request) {
@@ -26,6 +28,7 @@ public class Leavecontroller {
         return service.addLeave(request);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<Leave_reqsResponse> getAllLeaves() {
 
@@ -39,6 +42,7 @@ public class Leavecontroller {
         return service.getLeaveById(id);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public MessageResponse deleteLeave(
             @PathVariable Integer id) {
