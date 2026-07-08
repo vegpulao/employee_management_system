@@ -1,5 +1,7 @@
 package org.example.employee_management.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +15,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Leave_reqsRequest {
 
-    private String reason;
+    @NotNull
     private LocalDate startDate;
+
+    @NotNull
     private LocalDate endDate;
+
+    @NotBlank
+    private String reason;
+
+    @NotBlank
     private String status;
 
+    @NotNull
     private Integer employeeId;
-
 }

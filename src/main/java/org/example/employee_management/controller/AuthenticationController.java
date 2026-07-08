@@ -1,5 +1,6 @@
 package org.example.employee_management.controller;
 
+import jakarta.validation.Valid;
 import org.example.employee_management.dto.LoginRequest;
 import org.example.employee_management.dto.LoginResponse;
 import org.example.employee_management.dto.MessageResponse;
@@ -18,12 +19,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public MessageResponse register(@RequestBody AppUser appUser) {
+    public MessageResponse register(
+            @Valid @RequestBody AppUser appUser) {
         return service.register(appUser);
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
+    public LoginResponse login(
+            @Valid @RequestBody LoginRequest request) {
         return service.login(request);
     }
 }

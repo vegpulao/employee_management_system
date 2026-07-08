@@ -3,10 +3,12 @@ package org.example.employee_management.controller;
 import org.example.employee_management.dto.EmployeeRequest;
 import org.example.employee_management.dto.EmployeeResponse;
 import org.example.employee_management.dto.MessageResponse;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.example.employee_management.service.Employeeservice;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/employees")
@@ -18,9 +20,15 @@ public class Employeecontroller {
 
         this.service = service;
     }
+    @GetMapping("/page")
+    public Page<EmployeeResponse> getEmployees(
+            @ParameterObject Pageable pageable) {
+
+        return service.getEmployees(pageable);
+    }
     @PostMapping
     public EmployeeResponse addEmployee(
-            @RequestBody EmployeeRequest request) {
+            @Valid @RequestBody EmployeeRequest request) {
 
         return service.addEmployee(request);
 
@@ -40,7 +48,7 @@ public class Employeecontroller {
     @PutMapping("/{id}")
     public EmployeeResponse updateEmployee(
             @PathVariable Integer id,
-            @RequestBody EmployeeRequest request) {
+            @Valid @RequestBody EmployeeRequest request) {
 
         return service.updateEmployee(id, request);
     }
@@ -57,9 +65,5 @@ public class Employeecontroller {
     @GetMapping("/search/name/{name}")
     public List<EmployeeResponse> searchByName(@PathVariable String name) {
         return service.searchByName(name);
-    }
-    @GetMapping("/page")
-    public Page<EmployeeResponse> getEmployees(Pageable pageable) {
-        return service.getEmployees(pageable);
     }
 }

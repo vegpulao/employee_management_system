@@ -1,8 +1,10 @@
 package org.example.employee_management.controller;
 
+import jakarta.validation.Valid;
 import org.example.employee_management.dto.MessageResponse;
 import org.example.employee_management.dto.TaskRequest;
 import org.example.employee_management.dto.TaskResponse;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class Taskcontroller {
     }
     @PostMapping
     public TaskResponse addTask(
-            @RequestBody TaskRequest request) {
+            @Valid @RequestBody TaskRequest request) {
 
         return service.addTask(request);
 
@@ -42,7 +44,7 @@ public class Taskcontroller {
     @PutMapping("/{id}")
     public TaskResponse updateTask(
             @PathVariable Integer id,
-            @RequestBody TaskRequest request) {
+            @Valid @RequestBody TaskRequest request) {
 
         return service.updateTask(id, request);
 
@@ -61,8 +63,9 @@ public class Taskcontroller {
     public List<TaskResponse> searchByTitle(@PathVariable String title) {
         return service.searchByTitle(title);
     }
-    @GetMapping
-    public Page<TaskResponse> getAllTasks(Pageable pageable) {
+    @GetMapping("/page")
+    public Page<TaskResponse> getAllTasks(
+            @ParameterObject Pageable pageable) {
 
         return service.getAllTasks(pageable);
 
@@ -70,7 +73,7 @@ public class Taskcontroller {
     @GetMapping("/employee/{employeeId}")
     public Page<TaskResponse> getTasksByEmployee(
             @PathVariable Integer employeeId,
-            Pageable pageable) {
+            @ParameterObject Pageable pageable) {
 
         return service.getTasksByEmployee(employeeId, pageable);
 

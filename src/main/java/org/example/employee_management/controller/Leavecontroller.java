@@ -1,5 +1,6 @@
 package org.example.employee_management.controller;
 
+import jakarta.validation.Valid;
 import org.example.employee_management.dto.Leave_reqsRequest;
 import org.example.employee_management.dto.Leave_reqsResponse;
 import org.example.employee_management.dto.MessageResponse;
@@ -20,7 +21,7 @@ public class Leavecontroller {
     }
     @PostMapping
     public Leave_reqsResponse addLeave(
-            @RequestBody Leave_reqsRequest request) {
+            @Valid @RequestBody Leave_reqsRequest request) {
 
         return service.addLeave(request);
 
@@ -48,7 +49,7 @@ public class Leavecontroller {
     @PutMapping("/{id}")
     public Leave_reqsResponse updateLeave(
             @PathVariable Integer id,
-            @RequestBody Leave_reqsRequest request) {
+            @Valid @RequestBody Leave_reqsRequest request) {
 
         return service.updateLeave(id, request);
 
